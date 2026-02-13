@@ -1057,3 +1057,48 @@ window.addEventListener("resize", function() {
         renderMobileTags();
     }
 });
+
+(function enableMobileSwipeBack() {
+    let startX = 0;
+    let startY = 0;
+    let isSwiping = false;
+
+    function onTouchStart(e) {
+        if (!isMobile()) return;
+        if (!document.getElementById("mobileReaderView")?.classList.contains("active")) return;
+
+        const touch = e.touches[0];
+        startX = touch.clientX;
+        startY = touch.clientY;
+        isSwiping = true;
+    }
+
+    function onTouchMove(e) {
+        if (!isSwiping) return;
+        const touch = e.touches[0];
+        const dx = touch.clientX - startX;
+        const dy = touch.clientY - startY;
+
+        // If vertical movement is stronger, ignore (so scrolling still works)
+        if (Math.abs(dy) > Math.abs(dx)) {
+            isSwiping = false;
+        }
+    }
+
+    function onTouchEnd(e) {
+        if (!isSwiping) return;
+        isSwiping = false;
+
+        const touch = e.changedTouches[0];
+        const dx = touch.clientX - startX;
+
+        // Swipe right threshold
+        if (dx > 80) {
+            closeMobileReader();
+        }
+    }
+
+    document.addEventListener("touchstart", onTouchStart, { passive: true });
+    document.addEventListener("touchmove", onTouchMove, { passive: true });
+    document.addEventListener("touchend", onTouchEnd);
+})();
