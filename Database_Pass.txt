@@ -1,0 +1,7 @@
+E1kt9UcHy1lOSeSk
+
+
+const SUPABASE_URL   = "https://reuupfvfmfibqqfqniin.supabase.co";
+const SUPABASE_KEY   = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJldXVwZnZmbWZpYnFxZnFuaWluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA5NjkzMzAsImV4cCI6MjA4NjU0NTMzMH0.mOeDwmEIvlJ-6YrvkCdx20F-Az8c-amh4O5xSTQpxns";
+const ADMIN_PASSWORD = "Keillyjessicajoseph";   // local-only check
+const TABLE_NAME     = "poems";

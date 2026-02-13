@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>From Keith, with love.</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="Styles.css">
+</head>
+<body>
+
+<!-- Layered atmosphere -->
+<div class="aurora"></div>
+<div class="snowflakes" id="snowflakes"></div>
+<div class="grain"></div>
+
+<!-- Top bar -->
+<header class="topbar">
+    <span class="logo" id="logoTrigger">from keith, with love</span>
+    <nav class="topbar-nav">
+        <button class="nav-btn active" data-view="library">Library</button>
+        <button class="nav-btn" data-view="tonight">Tonight</button>
+        <button class="nav-btn" data-view="message">For You</button>
+    </nav>
+    <span class="days-counter" id="daysCounter" title="Days together">♥</span>
+</header>
+
+<!-- ===== LIBRARY VIEW ===== -->
+<main id="viewLibrary" class="view active">
+    <div class="library-container">
+        
+        <!-- Mobile: List view (default) -->
+        <div class="mobile-list-view" id="mobileListView">
+            <!-- Search -->
+            <div class="mobile-search">
+                <svg class="search-icon" viewBox="0 0 20 20"><circle cx="8.5" cy="8.5" r="5.5" fill="none" stroke="currentColor" stroke-width="1.5"/><line x1="12.5" y1="12.5" x2="17" y2="17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                <input type="text" id="searchInputMobile" class="search-input" placeholder="search poems…" autocomplete="off">
+            </div>
+
+            <!-- Tags -->
+            <div class="mobile-tags" id="mobileTagFilter">
+                <span class="tag active" data-tag="all">all</span>
+            </div>
+
+            <!-- Poem count -->
+            <div class="mobile-count">
+                <span class="count-label">poems</span>
+                <span class="count-num" id="poemCountMobile">0</span>
+            </div>
+
+            <!-- Poems list -->
+            <div class="mobile-poems" id="mobilePoemList"></div>
+        </div>
+
+        <!-- Mobile: Reader view (opens when poem clicked) -->
+        <div class="mobile-reader-view" id="mobileReaderView">
+            <button class="reader-back" id="readerBack">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+                <span>Back</span>
+            </button>
+
+            <div class="reader-content">
+                <div class="reader-empty-mobile" id="readerEmptyMobile">
+                    <div class="empty-icon">✦</div>
+                    <p>Select a poem to read</p>
+                </div>
+
+                <article class="poem-article-mobile hidden" id="poemArticleMobile">
+                    <div class="sweet-message hidden" id="sweetMessageMobile"></div>
+                    <div class="poem-meta-mobile">
+                        <h1 class="poem-title-mobile" id="readTitleMobile"></h1>
+                        <span class="poem-date-mobile" id="readDateMobile"></span>
+                        <div class="poem-dedication-mobile hidden" id="readDedicationMobile"></div>
+                        <div class="poem-tags-mobile" id="readTagsMobile"></div>
+                    </div>
+                    <div class="poem-body-mobile" id="readBodyMobile"></div>
+                    <footer class="poem-footer-mobile">
+                        <button class="fav-btn-mobile" id="favBtnMobile" title="Toggle favourite">
+                            <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                        </button>
+                    </footer>
+                </article>
+            </div>
+        </div>
+
+        <!-- Desktop: Side-by-side layout -->
+        <div class="desktop-layout">
+            <aside class="sidebar">
+                <div class="sidebar-header">
+                    <span class="sidebar-label">poems</span>
+                    <span class="poem-count" id="poemCount">0</span>
+                </div>
+
+                <div class="search-wrap">
+                    <svg class="search-icon" viewBox="0 0 20 20"><circle cx="8.5" cy="8.5" r="5.5" fill="none" stroke="currentColor" stroke-width="1.5"/><line x1="12.5" y1="12.5" x2="17" y2="17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                    <input type="text" id="searchInput" class="search-input" placeholder="search…" autocomplete="off">
+                </div>
+
+                <div class="tag-filter">
+                    <span class="tag active" data-tag="all">all</span>
+                </div>
+
+                <ul class="poem-list" id="poemList"></ul>
+            </aside>
+
+            <section class="reader">
+                <div class="reader-empty" id="readerEmpty">
+                    <div class="empty-icon">✦</div>
+                    <p>choose a poem<br><span>to begin reading</span></p>
+                </div>
+
+                <article class="poem-article hidden" id="readerArticle">
+                    <div class="sweet-message hidden" id="sweetMessage"></div>
+                    <div class="poem-meta">
+                        <h1 class="poem-title" id="readTitle"></h1>
+                        <span class="poem-date" id="readDate"></span>
+                        <div class="poem-dedication hidden" id="readDedication"></div>
+                        <div class="poem-tags" id="readTags"></div>
+                    </div>
+                    <div class="poem-body" id="readBody"></div>
+                    <footer class="poem-footer">
+                        <button class="fav-btn" id="favBtn" title="Toggle favourite">
+                            <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                        </button>
+                    </footer>
+                </article>
+            </section>
+        </div>
+    </div>
+</main>
+
+<!-- ===== TONIGHT VIEW ===== -->
+<main id="viewTonight" class="view">
+    <div class="tonight-shell">
+        <div class="tonight-card">
+
+            <!-- Mood wheel -->
+            <div class="mood-wheel">
+                <button class="mood-btn active" data-mood="all">✦ any</button>
+                <button class="mood-btn" data-mood="cozy">☕ cozy</button>
+                <button class="mood-btn" data-mood="hopeful">🌤 hopeful</button>
+                <button class="mood-btn" data-mood="tender">🌙 tender</button>
+                <button class="mood-btn" data-mood="playful">✨ playful</button>
+            </div>
+
+            <p class="tonight-hint">pick a mood, then press</p>
+
+            <button class="tonight-btn" id="tonightBtn">
+                <span class="tonight-icon">✦</span>
+            </button>
+
+            <article class="tonight-poem hidden" id="tonightPoem">
+                <h2 class="tonight-title" id="tTitle"></h2>
+                <span class="tonight-date" id="tDate"></span>
+                <div class="tonight-dedication hidden" id="tDedication"></div>
+                <div class="tonight-body" id="tBody"></div>
+                <div class="tonight-tags" id="tTags"></div>
+            </article>
+        </div>
+    </div>
+</main>
+
+<!-- ===== MESSAGE VIEW ===== -->
+<main id="viewMessage" class="view">
+    <div class="message-shell">
+        <div class="message-card">
+            <div class="message-header">
+                <div class="message-icon">💌</div>
+                <h2 class="message-title">For You</h2>
+            </div>
+            
+            <div class="message-body">
+                <p>I built this place for us — a quiet corner of the internet where I can leave pieces of my heart for you to find. Every poem here is a love letter. Every word, a reminder that even when we're apart, you're always with me.</p>
+                <p>Distance doesn't diminish what we have. If anything, it makes every moment we share more precious. These poems are the miles between us, transformed into something beautiful. They're late-night thoughts, early morning wishes, and every feeling in between that I can't always say out loud but need you to know.</p>
+                <p>This library grows with us. Some poems will make you smile, some might make you cry, and hopefully all of them make you feel how deeply you're loved. When you miss me, come here. When you need to hear my voice, read these words. When you wonder if I'm thinking of you — I always am.</p>
+                <p>Thank you for being patient with the distance. Thank you for choosing us every single day. Thank you for being you.</p>
+                <p style="margin-top: 1.5em; font-style: italic; color: var(--warm-accent);">All my love, across every mile,<br>Keith</p>
+            </div>
+
+            <div class="message-footer">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value" id="statDays">0</div>
+                        <div class="stat-label">days together</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="statHours">0</div>
+                        <div class="stat-label">hours</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="statMinutes">0</div>
+                        <div class="stat-label">minutes</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="statSeconds">0</div>
+                        <div class="stat-label">seconds</div>
+                    </div>
+                </div>
+
+                <div class="milestones" id="milestones"></div>
+
+                <span class="message-days" id="messageDays"></span>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Modals... (keeping existing modals) -->
+<div class="modal-overlay hidden" id="loginOverlay">
+    <div class="modal modal-login">
+        <h2>admin access</h2>
+        <input type="password" id="adminPassword" class="modal-input" placeholder="password">
+        <p class="modal-error hidden" id="loginError">incorrect password</p>
+        <div class="modal-actions">
+            <button class="modal-btn" id="loginBtn">enter</button>
+        </div>
+    </div>
+</div>
+
+<div class="modal-overlay hidden" id="adminOverlay">
+    <div class="modal modal-admin">
+        <button class="modal-close" id="adminClose">×</button>
+        
+        <div class="admin-header">
+            <h2>manage poems</h2>
+        </div>
+
+        <form class="admin-form" id="adminForm">
+            <div class="form-group">
+                <label>title</label>
+                <input type="text" id="poemTitle" class="form-input" required>
+            </div>
+
+            <div class="form-group">
+                <label>dedication <span style="opacity: .5">(optional)</span></label>
+                <input type="text" id="poemDedication" class="form-input" placeholder="For the girl who makes winter warm…">
+            </div>
+
+            <div class="form-group">
+                <label>body</label>
+                <textarea id="poemBody" class="form-textarea" rows="8" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>tags <span style="opacity: .5">(comma-separated)</span></label>
+                <input type="text" id="poemTags" class="form-input" placeholder="love, winter, longing">
+            </div>
+
+            <div class="modal-actions">
+                <button type="button" class="modal-btn modal-btn-ghost" id="clearForm">clear</button>
+                <button type="submit" class="modal-btn">save poem</button>
+            </div>
+        </form>
+
+        <div class="admin-list" id="adminPoemList"></div>
+    </div>
+</div>
+
+<div class="modal-overlay hidden" id="confirmOverlay">
+    <div class="modal modal-confirm">
+        <p>delete this poem permanently?</p>
+        <div class="confirm-btns">
+            <button class="modal-btn modal-btn-ghost" id="cancelDelete">cancel</button>
+            <button class="modal-btn modal-btn-danger" id="confirmDelete">delete</button>
+        </div>
+    </div>
+</div>
+
+<script src="App.js"></script>
+</body>
+</html>
